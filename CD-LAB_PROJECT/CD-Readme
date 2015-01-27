@@ -1,0 +1,86 @@
+README:
+Compiler Design
+USN:1PI10IS092
+    1PI10IS129
+    1PI10IS104
+    
+QUESTION:
+  Build a parser for SQL.
+  
+
+RUNNING THE CODE:
+1.Open terminal and navigate to the folder containing the SQLparser.l file,using the
+  cd command.
+
+2.Compile the lex file by typing in terminal:
+  lex <file name>.l
+  ex:lex SQLparser.l
+     
+3.Convert the .l program to a C program.
+  cc lex.yy.c -ll
+
+4.Run the program:
+  ./a.out
+  
+5.Then the user can input the query.
+
+EXAMPLE:
+
+Case 1:Valid Create statement
+
+pratyushs-MacBook-Pro:~ pratyush$ lex sqlparser.l
+pratyushs-MacBook-Pro:~ pratyush$ cc lex.yy.c -ll
+pratyushs-MacBook-Pro:~ pratyush$ ./a.out
+Create table employee(name varchar(10),post integer,salary float)
+Create Keyword 1000
+table Keyword 1000
+employee Identifier 1012
+( Parenthesis 1020
+name Identifier 1012
+ varchar Datatype 1004
+( Parenthesis 1020
+10 Number 1016
+) Parenthesis 1020
+, Operator 1008
+post Identifier 1012
+ integer Datatype 1004
+, Operator 1008
+salary Identifier 1012
+ float Datatype 1004
+) Parenthesis 1020
+
+String is converted to : 
+key key id ob id dtype ob num cb op id dtype op id dtype cb 
+
+
+Input accepted.
+
+Case 2:Invalid Create statement
+
+pratyushs-MacBook-Pro:~ pratyush$ ./a.out
+create table employee(name varchar(10)
+create Keyword 1000
+table Keyword 1000
+employee Identifier 1012
+( Parenthesis 1020
+name Identifier 1012
+ varchar Datatype 1004
+( Parenthesis 1020
+10 Number 1016
+) Parenthesis 1020
+
+String is converted to : 
+key key id ob id dtype ob num cb 
+
+
+Input rejected.Unmatched parenthesis.
+
+RECOMMENDED INPUT FORMATS FOR SUCCESSFUL PARSING:
+
+CREATE TABLE table_name(column_name1 data_type,column_name2 data_type,column_name3 data_type,....)
+
+ALTER TABLE table_nameADD column_name datatypeALTER TABLE table_nameMODIFY column_name datatype
+
+DROP TABLE table_nameDROP DATABASE database_name
+
+
